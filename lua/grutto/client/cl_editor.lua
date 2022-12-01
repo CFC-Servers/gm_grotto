@@ -8,7 +8,7 @@ local function createFrame()
     mainFrame:ShowCloseButton( true )
     mainFrame:SetDeleteOnClose( false )
 
-    local editor = vgui.Create( "grutto_editor_tabs", mainFrame )
+    local editor = vgui.Create( "grutto_editor", mainFrame )
     editor:Dock( FILL )
 end
 
