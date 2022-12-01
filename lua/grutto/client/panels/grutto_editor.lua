@@ -67,11 +67,11 @@ AccessorFunc( PANEL, "m_bLoadSnip",	"DoLoadSnippets",	FORCE_BOOL	 )
 
 
 function PANEL:Init()
-    self:SetCookieName( "lua_editor" )
+    self:SetCookieName( "grutto" )
     self:SetDoSaveSnippets( true )
     self:SetDoLoadSnippets( true )
 
-    self.SaveDirectory	= "lua_editor/"
+    self.SaveDirectory	= "grutto/"
     self.Sessions = {}
     self.Snippets = {}
     self.CTThreshold = 5 -- Compile Time Threshold in ms.
@@ -328,11 +328,11 @@ function PANEL:ValidateCode( code ) -- Here we make sure the code is valid, mean
     end
 
     local took = os.clock()
-    local err  = CompileString( code, "lua_editor", false ) -- CompileString is used to make sure there is no error on the code.
+    local err  = CompileString( code, "grutto", false ) -- CompileString is used to make sure there is no error on the code.
     took = ( os.clock() - took ) * 1000
 
     if type( err ) == "string" then
-        local matchage, txt = err:match( "^lua_editor%:(%d+)%:(.*)" )
+        local matchage, txt = err:match( "^grutto%:(%d+)%:(.*)" )
         local text = matchage and txt and ( "Line " .. matchage .. ":" .. txt ) or err or ""
         local match = err:match( " at line (%d)%)" ) or matchage
 
@@ -465,7 +465,7 @@ function PANEL:OnCode( code )
     local sessName = self:GetSessionName()
 
     -- Saving the content after 0.7 seconds (so we don't save every keystrokes). 0.7s is an arbitrary amount.
-    timer.Create( "lua_editor_autosave_" .. sessName, 0.7, 1, function()
+    timer.Create( "grutto_autosave_" .. sessName, 0.7, 1, function()
         if not self then return end
 
         self:Save( code, sessName )
@@ -690,4 +690,4 @@ function PANEL:SetErrors( messages )
 end
 
 
-vgui.Register( "lua_editor", PANEL, "EditablePanel" )
+vgui.Register( "grutto_editor", PANEL, "EditablePanel" )

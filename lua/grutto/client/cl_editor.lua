@@ -8,11 +8,11 @@ local function createFrame()
     mainFrame:ShowCloseButton( true )
     mainFrame:SetDeleteOnClose( false )
 
-    local editor = vgui.Create( "lua_editor_tabs", mainFrame )
+    local editor = vgui.Create( "grutto_editor_tabs", mainFrame )
     editor:Dock( FILL )
 end
 
-concommand.Add( "lua_editor", function()
+concommand.Add( "grutto", function()
     if not mainFrame then
         createFrame()
     end

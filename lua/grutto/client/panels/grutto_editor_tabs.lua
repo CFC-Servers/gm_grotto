@@ -125,7 +125,7 @@ function buttonPanel:PerformLayout()
     self:ApplySchemeSettings()
 end
 
-local lua_editor_tabbutton = vgui.RegisterTable( buttonPanel, "DButton" )
+local grutto_editor_tabbutton = vgui.RegisterTable( buttonPanel, "DButton" )
 
 
 local tabsPanel = {}
@@ -146,7 +146,7 @@ function tabsPanel:Init()
     self.tabScroller:DockMargin( 32, 0, 0, 0 )
     self.tabScroller.OnDragModified = function() self:PerformLayout() end
 
-    self.AddBtn = self:Add( lua_editor_tabbutton )
+    self.AddBtn = self:Add( grutto_editor_tabbutton )
     self.AddBtn:SetVisible( false )
     self.AddBtn:SetPos( 0, 0 )
     self.AddBtn:Setup( "+" )
@@ -184,7 +184,7 @@ function tabsPanel:Init()
         return panel:SetTextStyleColor( skin.Colours.Tab.Active.Down )
     end
 
-    self.Editor = vgui.Create( "lua_editor", self ) -- This is from lua_editor.lua
+    self.Editor = vgui.Create( "grutto_editor", self )
     self.Editor:Dock( FILL )
     self.Editor:DockMargin( 4, 0, 4, 4 )
     self.Editor.OnLoaded = function()
@@ -239,7 +239,7 @@ function tabsPanel:AddTab( name )
     if not self:GetEditor() then return end
     if self:GetTabByName( name ) then return end
 
-    local Tab = vgui.CreateFromTable( lua_editor_tabbutton, self )
+    local Tab = vgui.CreateFromTable( grutto_editor_tabbutton, self )
     Tab:Setup( name, self )
 
     self.tabScroller:AddPanel( Tab )
@@ -341,4 +341,4 @@ function tabsPanel:CloseTab( tab )
 end
 
 
-derma.DefineControl( "lua_editor_tabs", "", tabsPanel, "Panel" )
+derma.DefineControl( "grutto_editor_tabs", "", tabsPanel, "Panel" )
