@@ -15,12 +15,23 @@ local function createFrame()
     mainFrame:SetVisible( true )
     mainFrame:ShowCloseButton( true )
     mainFrame:SetDeleteOnClose( true )
+    mainFrame:SetIcon( "icon16/application_xp_terminal.png" )
 
-    local sidebar = vgui.Create( "grutto_sidebar", mainFrame )
-    sidebar:SetWide( 180 )
-    sidebar:Dock( LEFT )
+    local leftPanel = vgui.Create( "DPanel", mainFrame )
+    local rightPanel = vgui.Create( "DPanel", mainFrame )
+    local divider = vgui.Create( "DHorizontalDivider", mainFrame )
+    divider:Dock( FILL )
+    divider:SetLeft( leftPanel )
+    divider:SetRight( rightPanel )
+    divider:SetDividerWidth( 4 )
+    divider:SetLeftMin( 0 )
+    divider:SetRightMin( 200 )
+    divider:SetLeftWidth( 150 )
 
-    local topbar = vgui.Create( "grutto_topbar", mainFrame )
+    local sidebar = vgui.Create( "grutto_sidebar", leftPanel )
+    sidebar:Dock( FILL )
+
+    local topbar = vgui.Create( "grutto_topbar", rightPanel )
     topbar:SetTall( 30 )
     topbar:Dock( TOP )
 
@@ -54,7 +65,7 @@ local function createFrame()
         GRUTTO.RunCodeSV( GRUTTO.GetActiveEditorCode() )
     end
 
-    local tabs = vgui.Create( "grutto_editor_tabs", mainFrame )
+    local tabs = vgui.Create( "grutto_editor_tabs", rightPanel )
     tabs:Dock( FILL )
 
     function GRUTTO.AddTab( name, panel, extension )

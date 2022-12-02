@@ -21,7 +21,7 @@ function PANEL:AddTab( name, content, extension )
     editor:SetCode( content or "" )
     editor:SetLanguage( extension or "glua" )
 
-    GRUTTO.ActiveEditor = sheet.Tab
+    GRUTTO.ActiveEditor = sheet.Tab:GetPanel()
     self.Sheet:SetActiveTab( sheet.Tab )
 end
 
