@@ -2,6 +2,7 @@ GRUTTO = {}
 
 include( "panels/grutto_editor.lua" )
 include( "panels/grutto_editor_tabs.lua" )
+include( "panels/grutto_console.lua" )
 include( "panels/grutto_sidebar.lua" )
 include( "panels/grutto_topbar.lua" )
 include( "cl_runcode.lua" )

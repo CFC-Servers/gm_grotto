@@ -9,29 +9,40 @@ end
 
 local function createFrame()
     local mainFrame = vgui.Create( "DFrame" )
-    mainFrame:SetSize( ScrW() * 2 / 3, ScrH() * 2 / 3 )
-    mainFrame:SetPos( ScrW() * 1 / 6, ScrH() * 1 / 6 )
+    local frameW, frameH = ScrW() * 2 / 3, ScrH() * 2 / 3
+    mainFrame:SetSize( frameW, frameH )
+    mainFrame:Center()
     mainFrame:SetTitle( "Grutto" )
     mainFrame:SetVisible( true )
     mainFrame:ShowCloseButton( true )
     mainFrame:SetDeleteOnClose( true )
     mainFrame:SetIcon( "icon16/application_xp_terminal.png" )
 
-    local leftPanel = vgui.Create( "DPanel", mainFrame )
-    local rightPanel = vgui.Create( "DPanel", mainFrame )
-    local divider = vgui.Create( "DHorizontalDivider", mainFrame )
-    divider:Dock( FILL )
-    divider:SetLeft( leftPanel )
-    divider:SetRight( rightPanel )
-    divider:SetDividerWidth( 4 )
-    divider:SetLeftMin( 0 )
-    divider:SetRightMin( 200 )
-    divider:SetLeftWidth( 150 )
+    local horizontalLeftDiv = vgui.Create( "DPanel", mainFrame )
+    local horizontalRightDiv = vgui.Create( "DPanel", mainFrame )
+    local hDivider = vgui.Create( "DHorizontalDivider", mainFrame )
+    hDivider:Dock( FILL )
+    hDivider:SetLeft( horizontalLeftDiv )
+    hDivider:SetRight( horizontalRightDiv )
+    hDivider:SetDividerWidth( 4 )
+    hDivider:SetLeftMin( 0 )
+    hDivider:SetRightMin( 200 )
+    hDivider:SetLeftWidth( 150 )
 
-    local sidebar = vgui.Create( "grutto_sidebar", leftPanel )
+    local sidebar = vgui.Create( "grutto_sidebar", horizontalLeftDiv )
     sidebar:Dock( FILL )
 
-    local topbar = vgui.Create( "grutto_topbar", rightPanel )
+    local verticalUpDiv = vgui.Create( "DPanel", horizontalRightDiv )
+    local verticalDownDiv = vgui.Create( "DPanel", horizontalRightDiv )
+    local vDivider = vgui.Create( "DVerticalDivider", horizontalRightDiv )
+    vDivider:Dock( FILL )
+    vDivider:SetTop( verticalUpDiv )
+    vDivider:SetBottom( verticalDownDiv )
+    vDivider:SetBottomMin( 0 )
+    vDivider:SetTopHeight( frameH * 0.8 )
+    vDivider:SetPaintBackground( true )
+
+    local topbar = vgui.Create( "grutto_topbar", verticalUpDiv )
     topbar:SetTall( 30 )
     topbar:Dock( TOP )
 
@@ -65,7 +76,7 @@ local function createFrame()
         GRUTTO.RunCodeSV( GRUTTO.GetActiveEditorCode() )
     end
 
-    local tabs = vgui.Create( "grutto_editor_tabs", rightPanel )
+    local tabs = vgui.Create( "grutto_editor_tabs", verticalUpDiv )
     tabs:Dock( FILL )
 
     function GRUTTO.AddTab( name, panel, extension )
@@ -73,6 +84,10 @@ local function createFrame()
     end
 
     tabs:AddTab()
+
+    local console = vgui.Create( "grutto_console", verticalDownDiv )
+    console:Dock( FILL )
+    console:AppendText( "Grutto console" )
 
     return mainFrame
 end

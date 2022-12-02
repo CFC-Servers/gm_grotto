@@ -17,8 +17,4 @@ function PANEL:Init()
     end
 end
 
-function PANEL:Paint()
-    return true
-end
-
 vgui.Register( "grutto_sidebar", PANEL, "DPanel" )

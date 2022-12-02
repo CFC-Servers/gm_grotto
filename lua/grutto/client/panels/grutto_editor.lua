@@ -67,8 +67,4 @@ function PANEL:SetLanguage( lang )
     self:QueueJSCommand( "SetMode", mode or lang )
 end
 
-function PANEL:Paint()
-    return true
-end
-
 vgui.Register( "grutto_editor", PANEL, "DPanel" )
