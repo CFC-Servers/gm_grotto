@@ -3,6 +3,9 @@ local PANEL = {}
 function PANEL:Init()
     local sheet = vgui.Create( "DPropertySheet", self )
     sheet:Dock( FILL )
+    function sheet:OnActiveTabChanged( _, new )
+        GRUTTO.ActiveEditor = new:GetPanel()
+    end
     self.Sheet = sheet
 end
 
@@ -21,6 +24,9 @@ function PANEL:AddTab( name, content, extension )
 
     for _, tbl in ipairs( self.Sheet:GetItems() ) do
         if tbl.Name == name then
+            if not GRUTTO.ActiveEditor then
+                GRUTTO.ActiveEditor = tbl.Tab:GetPanel()
+            end
             self.Sheet:SetActiveTab( tbl.Tab )
             break
         end

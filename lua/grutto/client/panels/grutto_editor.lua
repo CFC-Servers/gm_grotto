@@ -49,7 +49,7 @@ function PANEL:OnFinishLoadingDocument()
     end
 end
 
-function PANEL:GetEditorContents()
+function PANEL:GetCode()
     return self.Contents
 end
 

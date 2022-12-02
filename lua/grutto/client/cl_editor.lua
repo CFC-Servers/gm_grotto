@@ -1,4 +1,12 @@
 --local mainFrame
+function GRUTTO.GetActiveEditor()
+    return GRUTTO.ActiveEditor
+end
+
+function GRUTTO.GetActiveEditorCode()
+    return GRUTTO.ActiveEditor:GetCode()
+end
+
 local function createFrame()
     local mainFrame = vgui.Create( "DFrame" )
     mainFrame:SetSize( ScrW() * 2 / 3, ScrH() * 2 / 3 )
