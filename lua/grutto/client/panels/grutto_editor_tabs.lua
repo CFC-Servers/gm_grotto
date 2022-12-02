@@ -6,7 +6,7 @@ function PANEL:Init()
     self.Sheet = sheet
 end
 
-function PANEL:AddTab( name, content )
+function PANEL:AddTab( name, content, extension )
     if not name then
         PANEL.UnnamedTabs = ( PANEL.UnnamedTabs or 0 ) + 1
         name = "New tab " .. PANEL.UnnamedTabs
@@ -17,6 +17,18 @@ function PANEL:AddTab( name, content )
     editor:Dock( FILL )
 
     editor:SetCode( content or "" )
+    editor:SetLanguage( extension or "glua" )
+
+    for _, tbl in ipairs( self.Sheet:GetItems() ) do
+        if tbl.Name == name then
+            self.Sheet:SetActiveTab( tbl.Tab )
+            break
+        end
+    end
 end
+
+-- function PANEL:Paint( w, h )
+--     draw.RoundedBox( 3, 0, 0, w - 1, h, Color( 255, 255, 255 ) )
+-- end
 
 vgui.Register( "grutto_editor_tabs", PANEL, "DPanel" )

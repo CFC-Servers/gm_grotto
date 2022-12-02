@@ -1,3 +1,7 @@
+local extensionToMode = {
+    txt = "text",
+}
+
 local PANEL = {}
 
 function PANEL:Init()
@@ -21,7 +25,7 @@ function PANEL:SetupDHTML()
         end
     end
 
-    dhtml:OpenURL( "http://redox-gmod.com:5050/grutto_ace.html" ) -- temp local url
+    dhtml:OpenURL( "http://redox-gmod.com:50/grutto_ace.html" ) -- temp local url
 end
 
 function PANEL:RunJSFunction( command, arg )
@@ -31,7 +35,7 @@ end
 
 function PANEL:QueueJSCommand( command, arg )
     if self.Ready then
-        self:RunJS( command, arg )
+        self:RunJSFunction( command, arg )
     else
         table.insert( self.JSQueue, { command, arg } )
     end
@@ -41,7 +45,7 @@ function PANEL:OnFinishLoadingDocument()
     self.Ready = true
 
     for _, v in pairs( self.JSQueue ) do
-        self:RunJS( v[1], v[2] )
+        self:RunJSFunction( v[1], v[2] )
     end
 end
 
@@ -58,7 +62,12 @@ function PANEL:SetTheme( theme )
 end
 
 function PANEL:SetLanguage( lang )
-    self:QueueJSCommand( "SetLanguage", lang )
+    local mode = extensionToMode[lang]
+    self:QueueJSCommand( "SetMode", mode or lang )
+end
+
+function PANEL:Paint()
+    return true
 end
 
 vgui.Register( "grutto_editor", PANEL, "DPanel" )

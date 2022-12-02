@@ -12,8 +12,13 @@ function PANEL:Init()
         if not name then return end
         local contents = file.Read( name, "GAME" )
         local fileName = string.GetFileFromFilename( name )
-        GRUTTO.AddTab( fileName, contents )
+        local extension = string.GetExtensionFromFilename( name )
+        GRUTTO.AddTab( fileName, contents, extension )
     end
+end
+
+function PANEL:Paint()
+    return true
 end
 
 vgui.Register( "grutto_sidebar", PANEL, "DPanel" )
