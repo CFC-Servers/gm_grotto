@@ -1,5 +1,6 @@
 local extensionToMode = {
     txt = "text",
+    lua = "glua"
 }
 
 local PANEL = {}
