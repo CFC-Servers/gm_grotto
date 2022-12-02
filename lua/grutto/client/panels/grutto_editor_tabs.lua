@@ -16,21 +16,13 @@ function PANEL:AddTab( name, content, extension )
     end
 
     local editor = vgui.Create( "grutto_editor", self.sheet )
-    self.Sheet:AddSheet( name, editor, "icon16/brick.png" )
+    local sheet = self.Sheet:AddSheet( name, editor, "icon16/brick.png" )
     editor:Dock( FILL )
-
     editor:SetCode( content or "" )
     editor:SetLanguage( extension or "glua" )
 
-    for _, tbl in ipairs( self.Sheet:GetItems() ) do
-        if tbl.Name == name then
-            if not GRUTTO.ActiveEditor then
-                GRUTTO.ActiveEditor = tbl.Tab:GetPanel()
-            end
-            self.Sheet:SetActiveTab( tbl.Tab )
-            break
-        end
-    end
+    GRUTTO.ActiveEditor = sheet.Tab
+    self.Sheet:SetActiveTab( sheet.Tab )
 end
 
 -- function PANEL:Paint( w, h )
