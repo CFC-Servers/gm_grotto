@@ -1,31 +1,64 @@
 local PANEL = {}
 
 function PANEL:Init()
-    self.dhtml = vgui.Create( "DHTML", self )
-    self.dhtml:Dock( FILL )
-    self.dhtml:AddFunction( "grutto", "GetEditorContents", function( str )
+    self.JSQueue = {}
+    self:SetupDHTML()
+end
+
+function PANEL:SetupDHTML()
+    local dhtml = vgui.Create( "DHTML", self )
+    self.DHTML = dhtml
+    dhtml:Dock( FILL )
+    dhtml:AddFunction( "grutto", "GetEditorContents", function( str )
         self.Contents = str
     end )
-    self.dhtml:OpenURL( "http://redox-gmod.com:5050/grutto_ace.html" ) -- temp local url
+
+    function dhtml.OnDocumentReady()
+        self.Ready = true
+
+        for _, v in ipairs( self.JSQueue ) do
+            self:RunJSFunction( v[1], v[2] )
+        end
+    end
+
+    dhtml:OpenURL( "http://redox-gmod.com:5050/grutto_ace.html" ) -- temp local url
+end
+
+function PANEL:RunJSFunction( command, arg )
+    local js = command .. "('" .. string.JavascriptSafe( arg ) .. "')"
+    self.DHTML:RunJavascript( js )
+end
+
+function PANEL:QueueJSCommand( command, arg )
+    if self.Ready then
+        self:RunJS( command, arg )
+    else
+        table.insert( self.JSQueue, { command, arg } )
+    end
+end
+
+function PANEL:OnFinishLoadingDocument()
+    self.Ready = true
+
+    for _, v in pairs( self.JSQueue ) do
+        self:RunJS( v[1], v[2] )
+    end
 end
 
 function PANEL:GetEditorContents()
     return self.Contents
 end
 
-function PANEL:SetEditorContents( str )
-    str = string.JavascriptSafe( str )
-    self.dhtml:RunJavascript( "SetEditorContents( '" .. str .. "' )" )
+function PANEL:SetCode( str )
+    self:QueueJSCommand( "SetCode", str )
 end
 
 function PANEL:SetTheme( theme )
-    theme = string.JavascriptSafe( theme )
-    self.dhtml:RunJavascript( "SetTheme( '" .. theme .. "' )" )
+    self:QueueJSCommand( "SetTheme", theme )
 end
 
 function PANEL:SetLanguage( lang )
-    lang = string.JavascriptSafe( lang )
-    self.dhtml:RunJavascript( "SetMode( '" .. lang .. "' )" )
+    self:QueueJSCommand( "SetLanguage", lang )
 end
 
 vgui.Register( "grutto_editor", PANEL, "DPanel" )
