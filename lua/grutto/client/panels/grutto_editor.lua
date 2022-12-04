@@ -64,7 +64,13 @@ end
 
 function PANEL:SetLanguage( lang )
     local mode = extensionToMode[lang]
+    self.Mode = mode
     self:QueueJSCommand( "SetMode", mode or lang )
+end
+
+function PANEL:Save( path )
+    local code = self:GetCode()
+    file.Write( "grutto/" .. path .. ( self.Mode or ".txt" ), code )
 end
 
 vgui.Register( "grutto_editor", PANEL, "DPanel" )

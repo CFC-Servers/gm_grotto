@@ -15,11 +15,64 @@ function PANEL:AddTab( name, content, extension )
         name = "New tab " .. PANEL.UnnamedTabs
     end
 
+    for _, tab in pairs( self.Sheet.Items ) do
+        if tab.Tab:GetText() == name then
+            self.Sheet:SetActiveTab( tab.Tab )
+            return
+        end
+    end
+
     local editor = vgui.Create( "grutto_editor", self.sheet )
     local sheet = self.Sheet:AddSheet( name, editor, "icon16/brick.png" )
     editor:Dock( FILL )
     editor:SetCode( content or "" )
     editor:SetLanguage( extension or "glua" )
+
+    sheet.Menu = DermaMenu()
+    sheet.Menu:SetDeleteSelf( false )
+    sheet.Menu:Hide()
+    sheet.Menu:SetParent( self )
+
+    local saveOption = sheet.Menu:AddOption( "Save" )
+    saveOption:SetIcon( "icon16/disk.png" )
+    saveOption.DoClick = function()
+        editor:Save( name .. os.time() )
+    end
+
+    local saveAsOption = sheet.Menu:AddOption( "Save as..." )
+    saveAsOption:SetIcon( "icon16/disk_multiple.png" )
+    saveAsOption.DoClick = function()
+        Derma_StringRequest( "Save as...", "Enter the name of the file", "", function( text )
+            editor:Save( text )
+        end )
+    end
+
+    local closeOption = sheet.Menu:AddOption( "Close" )
+    closeOption:SetIcon( "icon16/cross.png" )
+    closeOption.DoClick = function()
+        Derma_Query(
+            "Do you want to save the changes you made to " .. name .. "?",
+            "Save changes?", "Yes", function()
+                editor:Save( name )
+                self.Sheet:CloseTab( sheet.Tab, true )
+            end,
+            "No", function()
+                if #self.Sheet:GetItems() == 1 then
+                    self:AddTab()
+                    self.Sheet:CloseTab( sheet.Tab, true )
+                else
+                    self.Sheet:CloseTab( sheet.Tab, true )
+                end
+                self.Sheet:CloseTab( sheet.Tab, true )
+            end,
+            "Cancel", function() end
+        )
+    end
+
+    function sheet.Tab:DoRightClick( ... )
+        sheet.Menu:Open()
+        return
+    end
 
     GRUTTO.ActiveEditor = sheet.Tab:GetPanel()
     self.Sheet:SetActiveTab( sheet.Tab )
