@@ -9,4 +9,4 @@ AddCSLuaFile( "grutto/client/cl_runcode.lua" )
 AddCSLuaFile( "grutto/client/cl_autocomplete.lua" )
 AddCSLuaFile( "grutto/client/cl_editor.lua" )
 
-print( "SV LuaEditor loaded." )
+include( "grutto/server/sv_runcode.lua" )

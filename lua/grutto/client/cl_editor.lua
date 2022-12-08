@@ -89,14 +89,16 @@ local function createFrame()
 
     local console = vgui.Create( "grutto_console", verticalDownDiv )
     console:Dock( FILL )
-    console:AppendText( "Grutto console" )
+    console:AppendText( "Grutto console initialized.\n" )
+
+    function GRUTTO.AddConsoleText( str, col )
+        console:AddConsoleText( str, col )
+    end
 
     return mainFrame
 end
 
 concommand.Add( "grutto", function()
-    include( "grutto/client/cl_init.lua" )
-
     --GRUTTO.GenerateAutoCompletes()
 
     --if not mainFrame then
