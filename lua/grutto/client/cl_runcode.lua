@@ -1,19 +1,3 @@
-local prefix = [[
-local me = LocalPlayer();
-local eyetrace = me:GetEyeTrace();
-local this = eyetrace.Entity;
-local here = eyetrace.HitPos;
-]]
-
--- Turn prefix into a single prefixable line
-do
-    local prefixSplit = string.Explode( "\n", prefix )
-    prefix = ""
-    for _, line in ipairs( prefixSplit ) do
-        prefix = prefix .. line
-    end
-end
-
 function GRUTTO.RunCodeCL( code )
     if not LocalPlayer():IsSuperAdmin() then
         GRUTTO.AddConsoleText( "You don't have permission to run code!", GRUTTO.Colors.ERROR )
@@ -21,8 +5,9 @@ function GRUTTO.RunCodeCL( code )
     end
 
     if not code then return end
-    code = prefix .. code
-    local func = CompileString( code, "GRUTTO" .. tostring( LocalPlayer() ), false )
+    local func = CompileString( code, "GRUTTO" .. tostring( LocalPlayer() )  .. LocalPlayer():SteamID(), false )
+
+    GRUTTO.SetRunEnv( LocalPlayer(), func )
 
     if not func then
         GRUTTO.AddConsoleText( func, GRUTTO.Colors.ERROR )
@@ -35,7 +20,9 @@ function GRUTTO.RunCodeCL( code )
         return
     end
 
-    GRUTTO.AddConsoleText( tostring( result ) )
+    if result then
+        GRUTTO.AddConsoleText( tostring( result ) )
+    end
 end
 
 function GRUTTO.RunCodeSV( code )

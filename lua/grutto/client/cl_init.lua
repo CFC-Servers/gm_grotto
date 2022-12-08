@@ -1,5 +1,3 @@
-GRUTTO = {}
-
 GRUTTO.Colors = {
     ERROR = Color( 255, 0, 0 ),
     CONSOLE_TEXT = Color( 200, 200, 200 ),

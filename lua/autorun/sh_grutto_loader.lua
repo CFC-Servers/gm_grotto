@@ -1,4 +1,4 @@
-LUAEDITOR = {}
+GRUTTO = {}
 
 if SERVER then
     include( "grutto/server/sv_init.lua" )
@@ -6,3 +6,5 @@ if SERVER then
 else
     include( "grutto/client/cl_init.lua" )
 end
+
+include( "grutto/shared/sh_init.lua" )

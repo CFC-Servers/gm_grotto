@@ -1,20 +1,11 @@
 util.AddNetworkString( "grutto_runcodesv" )
 util.AddNetworkString( "grutto_runcodesv_result" )
 
-local prefix = [[
-local me = Player( %s );
-local eyetrace = me:GetEyeTrace();
-local this = eyetrace.Entity;
-local here = eyetrace.HitPos;
-]]
-
--- Turn prefix into a single prefixable line
-do
-    local prefixSplit = string.Explode( "\n", prefix )
-    prefix = ""
-    for _, line in ipairs( prefixSplit ) do
-        prefix = prefix .. line
-    end
+local function sendResult( ply, str, ok )
+    net.Start( "grutto_runcodesv_result" )
+        net.WriteBool( ok )
+        net.WriteString( str )
+    net.Send( ply )
 end
 
 net.Receive( "grutto_runcodesv", function( _, ply )
@@ -26,30 +17,24 @@ net.Receive( "grutto_runcodesv", function( _, ply )
     local bytes = net.ReadUInt( 16 )
     local compressed = net.ReadData( bytes )
     local code = util.Decompress( compressed )
-    code = prefix .. code
-    code = string.format( code, ply:UserID() )
 
-    local func = CompileString( code, "GRUTTO" .. tostring( ply ), false )
+    local func = CompileString( code, "GRUTTO" .. tostring( ply ) .. ply:SteamID(), false )
+
     if isstring( func ) then
-        net.Start( "grutto_runcodesv_result" )
-            net.WriteBool( false )
-            net.WriteString( func )
-        net.Send( ply )
+        sendResult( ply, func, false )
         return
     end
+
+    GRUTTO.SetRunEnv( ply, func )
 
     local ok, result = pcall( func )
 
     if not ok then
-        net.Start( "grutto_runcodesv_result" )
-        net.WriteBool( false )
-            net.WriteString( result )
-        net.Send( ply )
+        sendResult( ply, result, false )
         return
     end
 
-    net.Start( "grutto_runcodesv_result" )
-        net.WriteBool( true )
-        net.WriteString( tostring( result ) )
-    net.Send( ply )
+    if result then
+        sendResult( ply, tostring( result ), true )
+    end
 end )
