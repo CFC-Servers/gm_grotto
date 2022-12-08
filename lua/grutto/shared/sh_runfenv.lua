@@ -18,7 +18,7 @@ function runEnv.print( ... )
     for _, arg in ipairs( args ) do
         str = str .. tostring( arg ) .. "\t"
     end
-    send( runEnv._runningPlayer, str, true )
+    send( me, str, true )
 end
 
 function runEnv.Msg( ... )
@@ -27,11 +27,11 @@ function runEnv.Msg( ... )
     for _, arg in ipairs( args ) do
         str = str .. tostring( arg )
     end
-    send( runEnv._runningPlayer, str, true )
+    send( me, str, true )
 end
 
 function runEnv.error( str )
-    send( runEnv._runningPlayer, str, false )
+    send( me, str, false )
     error( str )
 end
 
@@ -40,11 +40,15 @@ function runEnv.me()
 end
 
 function runEnv.this()
-    return runEnv._runningPlayer:GetEyeTrace().Entity
+    return me:GetEyeTrace().Entity
+end
+
+function runEnv.there()
+    return me:GetEyeTrace().HitPos
 end
 
 function runEnv.here()
-    return runEnv._runningPlayer:GetEyeTrace().HitPos
+    return me:GetPos()
 end
 
 setmetatable( runEnv, {
