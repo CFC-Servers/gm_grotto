@@ -1,10 +1,10 @@
 GRUTTO = {}
 
 if SERVER then
-    include( "grutto/server/sv_init.lua" )
-    AddCSLuaFile( "grutto/client/cl_init.lua" )
+    include( "grutto/server/init.lua" )
+    AddCSLuaFile( "grutto/client/init.lua" )
 else
-    include( "grutto/client/cl_init.lua" )
+    include( "grutto/client/init.lua" )
 end
 
-include( "grutto/shared/sh_init.lua" )
+include( "grutto/shared/init.lua" )

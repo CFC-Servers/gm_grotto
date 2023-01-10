@@ -99,8 +99,6 @@ local function createFrame()
 end
 
 concommand.Add( "grutto", function()
-    --GRUTTO.GenerateAutoCompletes()
-
     --if not mainFrame then
     local mainFrame = createFrame()
     --end

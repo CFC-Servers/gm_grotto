@@ -55,7 +55,7 @@ function GRUTTO.GenerateAutoCompletes()
         str = string.sub( str, 2 )
         local safe = string.JavascriptSafe( str )
 
-        local fileName = "grutto/cl_" .. name .. ".dat"
+        local fileName = "grutto/" .. name .. ".dat"
         local contents = prefix .. name .. " = \"" .. safe .. "\";"
         file.Write( fileName, contents  )
     end
