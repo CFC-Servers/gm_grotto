@@ -7,8 +7,10 @@ AddCSLuaFile( "grutto/shared/init.lua" )
 AddCSLuaFile( "grutto/shared/runfenv.lua" )
 
 AddCSLuaFile( "grutto/client/init.lua" )
+AddCSLuaFile( "grutto/client/cache.lua" )
 AddCSLuaFile( "grutto/client/runcode.lua" )
 AddCSLuaFile( "grutto/client/autocomplete.lua" )
 AddCSLuaFile( "grutto/client/editor.lua" )
 
 include( "grutto/server/runcode.lua" )
+include( "grutto/server/cache.lua" )

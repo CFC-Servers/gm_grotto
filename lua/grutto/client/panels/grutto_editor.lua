@@ -26,7 +26,7 @@ function PANEL:SetupDHTML()
         end
     end
 
-    dhtml:OpenURL( "http://redox-gmod.com:50/grutto_ace.html" ) -- temp local url
+    dhtml:SetHTML( file.Read( "grutto/cache/main.dat", "DATA" ) ) -- temp local url
 end
 
 function PANEL:RunJSFunction( command, arg )

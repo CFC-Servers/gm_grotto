@@ -7,7 +7,7 @@ function GRUTTO.GetActiveEditorCode()
     return GRUTTO.ActiveEditor:GetCode()
 end
 
-local function createFrame()
+local function mainPanel()
     local mainFrame = vgui.Create( "DFrame" )
     local frameW, frameH = ScrW() * 2 / 3, ScrH() * 2 / 3
     mainFrame:SetSize( frameW, frameH )
@@ -98,11 +98,18 @@ local function createFrame()
     return mainFrame
 end
 
-concommand.Add( "grutto", function()
-    --if not mainFrame then
-    local mainFrame = createFrame()
-    --end
+function GRUTTO.OpenEditor()
+    if not file.Exists( "grutto/cache/main.dat", "DATA" ) then
+        print( "Grutto cache not found, creating new one." )
+        GRUTTO.CreateCache()
+        return
+    end
 
+    local mainFrame = mainPanel()
     mainFrame:SetVisible( true )
     mainFrame:MakePopup()
+end
+
+concommand.Add( "grutto", function()
+    GRUTTO.OpenEditor()
 end )
