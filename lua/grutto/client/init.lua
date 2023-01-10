@@ -1,6 +1,8 @@
 GRUTTO.Colors = {
     ERROR = Color( 255, 0, 0 ),
-    CONSOLE_TEXT = Color( 200, 200, 200 ),
+    CONSOLE_TEXT = Color( 50, 50, 50 ),
+    CONSOLE_CLIENT = Color( 231, 219, 116 ),
+    CONSOLE_SERVER = Color( 145, 219, 232 )
 }
 
 include( "grutto/client/panels/grutto_editor.lua" )

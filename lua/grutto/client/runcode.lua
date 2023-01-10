@@ -45,6 +45,6 @@ net.Receive( "grutto_runcodesv_result", function()
     local ran = net.ReadBool()
     local result = net.ReadString()
 
-    local color = not ran and GRUTTO.Colors.ERROR
+    local color = ( not ran and GRUTTO.Colors.ERROR ) or GRUTTO.Colors.CONSOLE_SERVER
     GRUTTO.AddConsoleText( result, color )
 end )
