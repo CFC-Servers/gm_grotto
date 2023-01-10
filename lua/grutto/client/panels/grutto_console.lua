@@ -11,4 +11,9 @@ function PANEL:AddConsoleText( str, color )
     end
 end
 
+function PANEL:PerformLayout()
+    self:SetPaintBackgroundEnabled( true )
+    self:SetBGColor( Color( 77, 80, 82 ) )
+end
+
 vgui.Register( "grutto_console", PANEL, "RichText" )

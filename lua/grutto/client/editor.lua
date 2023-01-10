@@ -89,7 +89,6 @@ local function mainPanel()
 
     local console = vgui.Create( "grutto_console", verticalDownDiv )
     console:Dock( FILL )
-    console:AppendText( "Grutto console initialized.\n" )
 
     function GRUTTO.AddConsoleText( str, col )
         console:AddConsoleText( str, col )
