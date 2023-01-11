@@ -26,7 +26,9 @@ function PANEL:AddTab( name, content, extension )
     local sheet = self.Sheet:AddSheet( name, editor, "icon16/brick.png" )
     editor:Dock( FILL )
     editor:SetCode( content or "" )
-    editor:SetLanguage( extension or "glua" )
+    if extension then
+        editor:SetLanguage( extension )
+    end
 
     sheet.Menu = DermaMenu()
     sheet.Menu:SetDeleteSelf( false )
@@ -54,6 +56,9 @@ function PANEL:AddTab( name, content, extension )
             "Do you want to save the changes you made to " .. name .. "?",
             "Save changes?", "Yes", function()
                 editor:Save( name )
+                if #self.Sheet:GetItems() == 1 then
+                    self:AddTab()
+                end
                 self.Sheet:CloseTab( sheet.Tab, true )
             end,
             "No", function()
