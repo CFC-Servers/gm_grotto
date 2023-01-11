@@ -6,6 +6,7 @@ local extensionToMode = {
 local PANEL = {}
 
 function PANEL:Init()
+    self:SetBackgroundColor( GRUTTO.Colors.EDITOR_BACKGROUND )
     self.JSQueue = {}
     self:SetupDHTML()
 end
@@ -14,6 +15,7 @@ function PANEL:SetupDHTML()
     local dhtml = vgui.Create( "DHTML", self )
     self.DHTML = dhtml
     dhtml:Dock( FILL )
+    dhtml:SetVisible( false )
     dhtml:AddFunction( "grutto", "GetEditorContents", function( str )
         self.Contents = str
     end )
@@ -24,6 +26,10 @@ function PANEL:SetupDHTML()
         for _, v in ipairs( self.JSQueue ) do
             self:RunJSFunction( v[1], v[2] )
         end
+
+        timer.Simple( 0.01, function()
+            dhtml:SetVisible( true )
+        end )
     end
 
     dhtml:SetHTML( file.Read( "grutto/cache/main.dat", "DATA" ) ) -- temp local url
