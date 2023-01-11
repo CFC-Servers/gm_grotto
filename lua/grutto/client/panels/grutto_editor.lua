@@ -15,7 +15,8 @@ function PANEL:SetupDHTML()
     local dhtml = vgui.Create( "DHTML", self )
     self.DHTML = dhtml
     dhtml:Dock( FILL )
-    dhtml:SetVisible( false )
+    dhtml:Hide()
+
     dhtml:AddFunction( "grutto", "GetEditorContents", function( str )
         self.Contents = str
     end )
@@ -28,7 +29,7 @@ function PANEL:SetupDHTML()
         end
 
         timer.Simple( 0.01, function()
-            dhtml:SetVisible( true )
+            dhtml:Show()
         end )
     end
 
@@ -45,14 +46,6 @@ function PANEL:QueueJSCommand( command, arg )
         self:RunJSFunction( command, arg )
     else
         table.insert( self.JSQueue, { command, arg } )
-    end
-end
-
-function PANEL:OnFinishLoadingDocument()
-    self.Ready = true
-
-    for _, v in pairs( self.JSQueue ) do
-        self:RunJSFunction( v[1], v[2] )
     end
 end
 
