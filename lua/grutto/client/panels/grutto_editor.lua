@@ -15,22 +15,15 @@ function PANEL:SetupDHTML()
     local dhtml = vgui.Create( "DHTML", self )
     self.DHTML = dhtml
     dhtml:Dock( FILL )
-    dhtml:Hide()
-
     dhtml:AddFunction( "grutto", "GetEditorContents", function( str )
         self.Contents = str
     end )
 
     function dhtml.OnDocumentReady()
-        self.Ready = true
-
         for _, v in ipairs( self.JSQueue ) do
             self:RunJSFunction( v[1], v[2] )
         end
-
-        timer.Simple( 0.01, function()
-            dhtml:Show()
-        end )
+        self.Ready = true
     end
 
     dhtml:SetHTML( file.Read( "grutto/cache/main.dat", "DATA" ) ) -- temp local url
