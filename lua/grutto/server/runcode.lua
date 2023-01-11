@@ -11,6 +11,7 @@ end
 net.Receive( "grutto_runcodesv", function( _, ply )
     if not ply:IsSuperAdmin() then
         ErrorNoHalt( "[GRUTTO] " .. ply:GetNick() .. "<" .. ply:SteamID() .. "> is trying to run code on the server without access!\n" )
+        print( "[GRUTTO] " .. ply:GetNick() .. "<" .. ply:SteamID() .. "> is trying to run code on the server without access!\n" )
         return
     end
 
