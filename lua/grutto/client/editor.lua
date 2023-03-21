@@ -64,6 +64,10 @@ local function mainPanel()
         console:AddConsoleText( str, col )
     end
 
+    function GRUTTO.ClearConsole()
+        console:ClearConsole()
+    end
+
     return mainFrame
 end
 

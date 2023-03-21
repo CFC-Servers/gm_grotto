@@ -11,6 +11,10 @@ function PANEL:AddConsoleText( str, color )
     end
 end
 
+function PANEL:ClearConsoleText()
+    self:SetText( "" )
+end
+
 function PANEL:PerformLayout()
     self:SetPaintBackgroundEnabled( true )
     self:SetBGColor( Color( 77, 80, 82 ) )

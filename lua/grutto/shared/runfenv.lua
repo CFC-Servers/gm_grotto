@@ -1,4 +1,6 @@
-local runEnv = {}
+local runEnv = {
+    grutto = {}
+}
 
 function runEnv.__send( str, ran )
     if CLIENT then
@@ -34,6 +36,10 @@ end
 function runEnv.error( str )
     runEnv.__send( str, false )
     error( str )
+end
+
+function runEnv.grutto.ClearConsole()
+    GRUTTO.ClearConsole()
 end
 
 setmetatable( runEnv, {

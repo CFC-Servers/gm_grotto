@@ -19,7 +19,7 @@ net.Receive( "grutto_runcodesv", function( _, ply )
     local compressed = net.ReadData( bytes )
     local code = util.Decompress( compressed )
 
-    local func = CompileString( code, "GRUTTO" .. tostring( ply ) .. ply:SteamID(), false )
+    local func = CompileString( code, "[GRUTTO] " .. tostring( ply ) .. ply:SteamID(), false )
 
     if isstring( func ) then
         sendResult( ply, func, false )

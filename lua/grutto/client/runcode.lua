@@ -5,14 +5,14 @@ function GRUTTO.RunCodeCL( code )
     end
 
     if not code then return end
-    local func = CompileString( code, "GRUTTO" .. tostring( LocalPlayer() )  .. LocalPlayer():SteamID(), false )
+    local func = CompileString( code, "[GRUTTO] " .. tostring( LocalPlayer() )  .. LocalPlayer():SteamID(), false )
 
-    GRUTTO.SetRunEnv( LocalPlayer(), func )
-
-    if not func then
+    if not func or isstring( func ) then
         GRUTTO.AddConsoleText( func, GRUTTO.Colors.ERROR )
         return
     end
+
+    GRUTTO.SetRunEnv( LocalPlayer(), func )
 
     local ran, result = pcall( func )
     if not ran and result then
