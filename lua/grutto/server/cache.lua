@@ -23,17 +23,19 @@ GRUTTO.CacheFiles = {
 <!DOCTYPE html>
     <html lang="en">
 
-    <head>
-        <style type="text/css" media="screen">
-            #editor {
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-            }
-        </style>
-    </head>
+    <style>
+        .ace_gutter-layer {
+            background-color: rgb(30, 34, 42);
+        }
+        #editor { 
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgb(30, 34, 42);
+        }
+    </style>
 
     <body>
     <div id="editor"></div>
