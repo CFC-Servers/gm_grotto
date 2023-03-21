@@ -2,6 +2,7 @@ local PANEL = {}
 
 function PANEL:Init()
     local dtree = vgui.Create( "DTree", self )
+    self:SetBackgroundColor( GRUTTO.Colors.EDITOR_SIDEBAR )
     self.DTree = dtree
     dtree:Dock( FILL )
     dtree:Root():AddFolder( "Lua", "lua", "GAME", true )
@@ -14,6 +15,10 @@ function PANEL:Init()
         local fileName = string.GetFileFromFilename( name )
         local extension = string.GetExtensionFromFilename( name )
         GRUTTO.AddTab( fileName, contents, extension )
+    end
+
+    function dtree:Paint()
+        draw.RoundedBox( 0, 0, 0, self:GetWide(), self:GetTall(), GRUTTO.Colors.EDITOR_SIDEBAR )
     end
 end
 

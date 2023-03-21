@@ -3,7 +3,8 @@ GRUTTO.Colors = {
     CONSOLE_TEXT = Color( 50, 50, 50 ),
     CONSOLE_CLIENT = Color( 231, 219, 116 ),
     CONSOLE_SERVER = Color( 145, 219, 232 ),
-    EDITOR_BACKGROUND = Color( 40, 44, 52 )
+    EDITOR_BACKGROUND = Color( 40, 44, 52 ),
+    EDITOR_SIDEBAR = Color( 33, 37, 43 )
 }
 
 include( "grutto/client/panels/grutto_editor.lua" )
