@@ -65,7 +65,7 @@ local function mainPanel()
     end
 
     function GRUTTO.ClearConsole()
-        console:ClearConsole()
+        console:ClearConsoleText()
     end
 
     return mainFrame
