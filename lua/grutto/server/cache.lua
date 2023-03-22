@@ -40,12 +40,12 @@ GRUTTO.CacheFiles = {
     <body>
     <div id="editor"></div>
 
-    <script src="asset://garrysmod/data/grutto/cl_functions.dat"></script>
-    <script src="asset://garrysmod/data/grutto/cl_libraries.dat"></script>
-    <script src="asset://garrysmod/data/grutto/cl_constants.dat"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.13.1/ace.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.13.1/ext-language_tools.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="asset://garrysmod/data/grutto/cache/cl_functions.dat"></script>
+    <script src="asset://garrysmod/data/grutto/cache/cl_libraries.dat"></script>
+    <script src="asset://garrysmod/data/grutto/cache/cl_constants.dat"></script>
     <script src="asset://garrysmod/data/grutto/cache/glualang.dat"></script>
 
     <script type="text/javascript">
@@ -58,7 +58,7 @@ GRUTTO.CacheFiles = {
             var editor = ace.edit("editor");
             editor.setTheme("ace/theme/one_dark");
             editor.setShowPrintMargin(false);
-            editor.session.setMode("ace/mode/lua");
+            editor.session.setMode("ace/mode/glua");
             editor.renderer.setCursorStyle("smooth");
 
             editor.setOptions({
@@ -92,8 +92,7 @@ define("ace/mode/glua_highlight_rules", ["require", "exports", "module", "ace/li
     var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
     var gluaHighlightRules = function () {
-        var keywords = ("break|do|else|elseif|end|for|function|if|in|local|repeat|" +
-            "return|then|until|while|or|and|not");
+        var keywords = ("break|do|else|elseif|end|for|function|if|in|local|repeat|return|then|until|while|or|and|not|continue");
         var builtinConstants = (typeof window.grutto_constants === "undefined") ? ("true|false|nil|_G|_VERSION") : window.grutto_constants;
         var functions = (typeof window.grutto_functions === "undefined") ? (
             "string|xpcall|package|tostring|print|os|unpack|require|" +

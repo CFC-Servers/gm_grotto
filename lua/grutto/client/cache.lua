@@ -2,6 +2,8 @@ function GRUTTO.CreateCache()
     file.CreateDir( "grutto/cache" )
     net.Start( "grutto_request_cache" )
     net.SendToServer()
+
+    GRUTTO.GenerateAutoCompletes()
 end
 
 net.Receive( "grutto_receive_cache", function()
