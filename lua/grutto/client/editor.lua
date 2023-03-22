@@ -78,11 +78,10 @@ function GRUTTO.OpenEditor()
         return
     end
 
-    -- if GRUTTO.MainFrame then
-    --     GRUTTO.MainFrame:SetVisible( true )
-    --     GRUTTO.MainFrame:MakePopup()
-    --     return
-    -- end
+    if GRUTTO.MainFrame then
+        GRUTTO.MainFrame:Show()
+        return
+    end
 
     local mainFrame = mainPanel()
     mainFrame:SetVisible( true )
