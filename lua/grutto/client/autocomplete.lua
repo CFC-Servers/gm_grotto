@@ -22,12 +22,12 @@ local types = {
 local parsedTables = {}
 local prefix = "var grutto_"
 
-local function parseTable( tbl, typeOverride )
+local function parseTable( tbl )
     for key, val in pairs( tbl ) do
         if type( val ) == "table" then
             if parsedTables[val] then continue end
             parsedTables[tbl] = true
-            parseTable( val, typeOverride )
+            parseTable( val )
         else
             if type( val ) == "string" and string.upper( val ) == val then
                 types.constants[key] = true
@@ -42,7 +42,7 @@ function GRUTTO.GenerateAutoCompletes()
     parseTable( _G )
 
     for _, metaTable in pairs( metaTables ) do
-        parseTable( FindMetaTable( metaTable ), "meta" )
+        parseTable( FindMetaTable( metaTable ) )
     end
 
     file.CreateDir( "grutto" )
