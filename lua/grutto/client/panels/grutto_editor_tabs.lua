@@ -52,6 +52,17 @@ function PANEL:AddTab( name, content, extension )
     local closeOption = sheet.Menu:AddOption( "Close" )
     closeOption:SetIcon( "icon16/cross.png" )
     closeOption.DoClick = function()
+        if input.IsShiftDown() then
+            if #self.Sheet:GetItems() == 1 then
+                self:AddTab()
+                self.Sheet:CloseTab( sheet.Tab, true )
+            else
+                self.Sheet:CloseTab( sheet.Tab, true )
+            end
+            self.Sheet:CloseTab( sheet.Tab, true )
+            return
+        end
+
         Derma_Query(
             "Do you want to save the changes you made to " .. name .. "?",
             "Save changes?", "Yes", function()
