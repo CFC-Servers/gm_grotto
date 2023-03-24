@@ -17,9 +17,10 @@ function PANEL:Init()
         GRUTTO.AddTab( fileName, contents, extension )
     end
 
-    function dtree:Paint()
-        draw.RoundedBox( 0, 0, 0, self:GetWide(), self:GetTall(), GRUTTO.Colors.EDITOR_SIDEBAR )
-    end
+    -- PAINT
+    -- function dtree:Paint()
+    --     draw.RoundedBox( 0, 0, 0, self:GetWide(), self:GetTall(), GRUTTO.Colors.EDITOR_SIDEBAR )
+    -- end
 end
 
 vgui.Register( "grutto_sidebar", PANEL, "DPanel" )
