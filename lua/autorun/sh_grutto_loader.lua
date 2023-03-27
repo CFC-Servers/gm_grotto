@@ -13,7 +13,14 @@ end
 
 loadGrutto()
 
-concommand.Add ( "grutto_reload", function()
-    GRUTTO = {}
-    loadGrutto()
-end )
+if CLIENT then
+    concommand.Add( "grutto_reload_cl", function()
+        GRUTTO = {}
+        loadGrutto()
+    end )
+else
+    concommand.Add( "grutto_reload_sv", function()
+        GRUTTO = {}
+        loadGrutto()
+    end )
+end
