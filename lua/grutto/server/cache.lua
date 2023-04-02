@@ -2,7 +2,7 @@ util.AddNetworkString( "grutto_request_cache" )
 util.AddNetworkString( "grutto_receive_cache" )
 
 net.Receive( "grutto_request_cache", function( _, ply )
-    if not ply:IsSuperAdmin() then return end
+    if not GRUTTO.CanOpen( ply ) then return end
 
     for name, data in pairs( GRUTTO.CacheFiles ) do
         local compressed = util.Compress( data )

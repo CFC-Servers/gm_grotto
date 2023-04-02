@@ -1,5 +1,5 @@
 function GRUTTO.RunCodeCL( code )
-    if not LocalPlayer():IsSuperAdmin() then
+    if not GRUTTO.CanRunCL( LocalPlayer() ) then
         GRUTTO.AddConsoleText( "You don't have permission to run code!", GRUTTO.Colors.ERROR )
         return
     end
@@ -27,7 +27,7 @@ function GRUTTO.RunCodeCL( code )
 end
 
 function GRUTTO.RunCodeSV( code )
-    if not LocalPlayer():IsSuperAdmin() then
+    if not GRUTTO.CanRunSV( LocalPlayer() ) then
         GRUTTO.AddConsoleText( "You don't have permission to run code on the server!", GRUTTO.Colors.ERROR )
         return
     end

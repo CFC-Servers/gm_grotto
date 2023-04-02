@@ -4,7 +4,6 @@ AddCSLuaFile( "grutto/client/panels/grutto_sidebar.lua" )
 AddCSLuaFile( "grutto/client/panels/grutto_topbar.lua" )
 AddCSLuaFile( "grutto/client/panels/grutto_console.lua" )
 AddCSLuaFile( "grutto/shared/init.lua" )
-AddCSLuaFile( "grutto/shared/runfenv.lua" )
 
 AddCSLuaFile( "grutto/client/init.lua" )
 AddCSLuaFile( "grutto/client/cache.lua" )

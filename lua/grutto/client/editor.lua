@@ -72,6 +72,7 @@ local function mainPanel()
 end
 
 function GRUTTO.OpenEditor()
+    if not GRUTTO.CanOpen( LocalPlayer() ) then return end
     if not file.Exists( "grutto/cache/main.dat", "DATA" ) then
         print( "Grutto cache not found, creating new one." )
         GRUTTO.CreateCache()
