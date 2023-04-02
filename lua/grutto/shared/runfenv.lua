@@ -1,3 +1,5 @@
+local SERVER = SERVER
+local CLIENT = CLIENT
 local runEnv = {
     grutto = {}
 }

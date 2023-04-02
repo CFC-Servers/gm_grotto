@@ -5,7 +5,8 @@ function GRUTTO.RunCodeCL( code )
     end
 
     if not code then return end
-    local func = CompileString( code, "[GRUTTO] " .. tostring( LocalPlayer() )  .. LocalPlayer():SteamID(), false )
+    local lp = LocalPlayer()
+    local func = CompileString( code, "[GRUTTO][" .. lp:GetName() .. "][" .. lp:SteamID() .. "]", false )
 
     if not func or isstring( func ) then
         GRUTTO.AddConsoleText( func, GRUTTO.Colors.ERROR )
