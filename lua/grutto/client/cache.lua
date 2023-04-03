@@ -6,11 +6,9 @@ function GRUTTO.CreateCache()
     GRUTTO.GenerateAutoCompletes()
 end
 
-net.Receive( "grutto_receive_cache", function()
+net.Receive( "grutto_receive_cache", function( bytes )
     local filename = net.ReadString()
-    local bytes = net.ReadUInt( 16 )
-    local compressed = net.ReadData( bytes )
-    local contents = util.Decompress( compressed )
+    local contents = GRUTTO.ReadString()
 
     file.Write( "grutto/cache/" .. filename .. ".dat", contents )
     print( "Grutto successfully fetched " .. filename .. " " .. math.Round( bytes / 1024, 1 ) .. "kb" )

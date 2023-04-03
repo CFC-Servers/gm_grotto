@@ -5,13 +5,9 @@ net.Receive( "grutto_request_cache", function( _, ply )
     if not GRUTTO.CanOpen( ply ) then return end
 
     for name, data in pairs( GRUTTO.CacheFiles ) do
-        local compressed = util.Compress( data )
-        local bytes = #compressed
-
         net.Start( "grutto_receive_cache" )
             net.WriteString( name )
-            net.WriteUInt( bytes, 16 )
-            net.WriteData( compressed, bytes )
+            GRUTTO.WriteString( data )
         net.Send( ply )
     end
 end )

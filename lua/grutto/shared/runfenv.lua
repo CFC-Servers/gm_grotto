@@ -12,7 +12,7 @@ function runEnv.__send( str, ran )
     if SERVER then
         net.Start( "grutto_runcodesv_result" )
             net.WriteBool( ran )
-            net.WriteString( str )
+            GRUTTO.WriteString( str )
         net.Send( runEnv.__codeOwner )
     end
 end

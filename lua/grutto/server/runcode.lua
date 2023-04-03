@@ -4,7 +4,7 @@ util.AddNetworkString( "grutto_runcodesv_result" )
 local function sendResult( ply, str, ok )
     net.Start( "grutto_runcodesv_result" )
         net.WriteBool( ok )
-        net.WriteString( str )
+        GRUTTO.WriteString( str )
     net.Send( ply )
 end
 
@@ -15,10 +15,7 @@ net.Receive( "grutto_runcodesv", function( _, ply )
         return
     end
 
-    local bytes = net.ReadUInt( 16 )
-    local compressed = net.ReadData( bytes )
-    local code = util.Decompress( compressed )
-
+    local code = GRUTTO.ReadString()
     local func = CompileString( code, "[GRUTTO][" .. ply:GetName() .. "][" .. ply:SteamID() .. "]", false )
 
     if isstring( func ) then

@@ -33,18 +33,14 @@ function GRUTTO.RunCodeSV( code )
     end
 
     if not code then return end
-    local compressed = util.Compress( code )
-    local bytes = #compressed
-
     net.Start( "grutto_runcodesv" )
-        net.WriteUInt( bytes, 16 )
-        net.WriteData( compressed, bytes )
+        GRUTTO.WriteString( code )
     net.SendToServer()
 end
 
 net.Receive( "grutto_runcodesv_result", function()
     local ran = net.ReadBool()
-    local result = net.ReadString()
+    local result = GRUTTO.ReadString()
 
     local color = ( not ran and GRUTTO.Colors.ERROR ) or GRUTTO.Colors.CONSOLE_SERVER
     GRUTTO.AddConsoleText( result, color )
