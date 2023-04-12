@@ -36,6 +36,7 @@ GRUTTO.CacheFiles = {
     <body>
     <div id="editor"></div>
 
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Cdefault"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.13.1/ace.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.13.1/ext-language_tools.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
